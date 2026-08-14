@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QAIZR Executive AI Accelerator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#010714;
+    --ink-2:#020B1E;
+    --panel:#0a1830;
+    --panel-2:#0c1d3a;
+    --line:rgba(124,178,224,0.16);
+    --line-bright:rgba(69,214,255,0.45);
+    --cyan:#45D6FF;
+    --cyan-bright:#70E8FF;
+    --cyan-deep:#2DBCE8;
+    --amber:#FF9A2F;
+    --orange:#FF5A3D;
+    --gold:#FFC73A;
+    --text:#EAF3FB;
+    --muted:#9CB6D4;
+    --white:#F4FBFF;
+    --orange-grad:linear-gradient(90deg,#FF9A2F,#FF5A3D);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--text);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{padding:34px 26px}
+  /* Section 19: no widow/orphan lines. Balance headings, pretty-wrap prose. */
+  h1,h2,h3,.subhead,.eyebrow,.section-label,.card .h-num,.card h3,.rep .t,.walkout .k,.badge{text-wrap:balance}
+  .lede,p.body,.card p,.rep .d,.who .item p,.walkout .v,.foot .meta{text-wrap:pretty}
+  .oaccent{background:var(--orange-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600}
+  .page{
+    max-width:1200px;margin:0 auto;padding:52px 64px 46px;position:relative;overflow:hidden;
+    border:1px solid var(--line);border-radius:22px;
+    background:
+      radial-gradient(1400px 520px at 88% -12%, rgba(69,214,255,0.12), transparent 60%),
+      radial-gradient(1100px 480px at -8% 112%, rgba(255,90,61,0.10), transparent 55%),
+      radial-gradient(800px 420px at 50% 50%, rgba(10,24,48,0.6), transparent 70%),
+      linear-gradient(180deg,var(--ink-2),var(--ink));
+    box-shadow:0 40px 120px rgba(0,0,0,0.6);
+  }
+  .page::before{content:"";position:absolute;inset:0;background:
+    linear-gradient(90deg,transparent 0,transparent calc(100% - 4px),rgba(255,90,61,0.0) 100%);pointer-events:none}
+  .accent-top{position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange-grad);opacity:.9}
+
+  /* ---------- header ---------- */
+  .head{display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;z-index:2}
+  .wordmark{height:46px;width:auto;display:block}
+  .head .chip{font-family:'Inter';font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);
+    padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(69,214,255,0.06);white-space:nowrap}
+
+  /* ---------- hero ---------- */
+  .hero{display:grid;grid-template-columns:1fr 168px;gap:30px;align-items:center;margin-top:40px;position:relative;z-index:2}
+  .eyebrow{font-family:'Inter';font-weight:600;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:10px}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 16px var(--amber)}
+  h1{font-family:'Space Grotesk';font-weight:700;font-size:62px;line-height:1.0;letter-spacing:-1.4px;color:var(--white);margin:16px 0 12px}
+  h1 .hl{background:var(--orange-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subhead{font-family:'Space Grotesk';font-weight:500;font-size:21px;color:var(--cyan-bright);letter-spacing:.1px}
+  .hero-icon{justify-self:end;filter:drop-shadow(0 14px 34px rgba(255,90,61,0.35));transition:transform .4s ease}
+  .hero-icon:hover{transform:rotate(-4deg) scale(1.05)}
+  .hero-icon svg{width:168px;height:168px;display:block}
+
+  .lede{font-size:18px;line-height:1.62;color:var(--text);margin-top:24px;max-width:82ch;position:relative;z-index:2}
+  .lede b{color:var(--white);font-weight:600}
+
+  /* ---------- format badge row ---------- */
+  .format{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;position:relative;z-index:2}
+  .badge{display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk';font-weight:600;font-size:13.5px;letter-spacing:.02em;color:var(--white);
+    padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(10,24,48,0.6);transition:all .22s ease}
+  .badge:hover{border-color:var(--line-bright);transform:translateY(-2px)}
+  .badge .b-ico{width:9px;height:9px;border-radius:50%}
+  .badge.orange{border-color:rgba(255,90,61,0.45);background:rgba(255,90,61,0.08)}
+  .badge.orange .b-ico{background:var(--orange-grad)}
+  .badge.cyan .b-ico{background:var(--cyan)}
+  .badge .accentword{background:var(--orange-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+  .rule{height:1px;background:linear-gradient(90deg,var(--line-bright),var(--line),transparent);margin:44px 0 32px;position:relative;z-index:2}
+  .section-label{font-family:'Inter';font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan-deep);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .section-label::before{content:"";width:26px;height:2px;background:var(--orange-grad);border-radius:2px}
+  h2{font-family:'Space Grotesk';font-weight:600;font-size:29px;color:var(--white);margin-bottom:8px;letter-spacing:-0.4px}
+  p.body{font-size:16.5px;line-height:1.62;color:var(--text);max-width:88ch}
+  p.body b{color:var(--white)}
+
+  /* ---------- two halves ---------- */
+  .halves{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+  .card{position:relative;background:linear-gradient(180deg,var(--panel),rgba(2,11,30,0.55));border:1px solid var(--line);border-radius:16px;padding:26px 28px;overflow:hidden;
+    transition:transform .26s ease, box-shadow .26s ease, border-color .26s ease}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange-grad);transform:scaleY(0);transform-origin:top;transition:transform .3s ease}
+  .card:hover{transform:translateY(-6px);border-color:var(--line-bright);box-shadow:0 22px 50px rgba(0,0,0,0.55),0 0 0 1px rgba(69,214,255,0.18)}
+  .card:hover::before{transform:scaleY(1)}
+  .card .h-num{font-family:'Space Grotesk';font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+  .card h3{font-family:'Space Grotesk';font-weight:600;font-size:20px;color:var(--white);margin:10px 0 10px}
+  .card p{font-size:15px;line-height:1.58;color:var(--muted)}
+
+  /* ---------- four reps ---------- */
+  .reps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+  .rep{position:relative;border:1px solid var(--line);border-radius:14px;padding:20px 18px;background:rgba(10,24,48,0.45);overflow:hidden;
+    transition:transform .24s ease, border-color .24s ease, box-shadow .24s ease}
+  .rep::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange-grad);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+  .rep:hover{transform:translateY(-5px);border-color:var(--line-bright);box-shadow:0 18px 40px rgba(0,0,0,0.5)}
+  .rep:hover::after{transform:scaleX(1)}
+  .rep .n{font-family:'Space Grotesk';font-weight:700;font-size:26px;color:var(--cyan);transition:color .24s ease}
+  .rep:hover .n{color:var(--amber)}
+  .rep .t{font-family:'Space Grotesk';font-weight:600;font-size:15.5px;color:var(--white);margin:8px 0 6px}
+  .rep .d{font-size:13.5px;line-height:1.48;color:var(--muted)}
+
+  /* ---------- who ---------- */
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin-top:20px}
+  .who .item{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid transparent;transition:all .22s ease}
+  .who .item:hover{border-color:var(--line);background:rgba(10,24,48,0.55);transform:translateX(4px)}
+  .who .mark{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:rgba(69,214,255,0.12);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-weight:700;font-size:14px;margin-top:1px;transition:all .22s ease}
+  .who .item:hover .mark{background:var(--orange-grad);color:var(--white);border-color:transparent}
+  .who .item p{font-size:15.5px;line-height:1.5;color:var(--text)}
+  .who .item b{color:var(--white);font-weight:600}
+
+  /* ---------- walkout ---------- */
+  .walkout{margin-top:26px;background:
+      radial-gradient(600px 200px at 90% 0%, rgba(255,154,47,0.10), transparent 60%),
+      linear-gradient(180deg,rgba(69,214,255,0.08),rgba(2,11,30,0.4));
+    border:1px solid var(--line);border-radius:18px;padding:28px 30px}
+  .walkout .row{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .walkout .cell{transition:transform .22s ease}
+  .walkout .cell:hover{transform:translateY(-3px)}
+  .walkout .k{font-family:'Space Grotesk';font-weight:700;font-size:16px;color:var(--gold);letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+  .walkout .k .qbullet{width:16px;height:16px}
+  .walkout .v{font-size:14.5px;line-height:1.52;color:var(--muted);margin-top:8px}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:44px;padding-top:26px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;position:relative;z-index:2}
+  .foot .wm{height:30px;width:auto}
+  .foot .meta{font-size:13px;color:var(--muted);text-align:right;line-height:1.7}
+  .foot .meta .tag{color:var(--white);font-family:'Space Grotesk';font-weight:600}
+  .foot .meta .tag em{font-style:normal;background:var(--orange-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .foot .meta a{color:var(--cyan);text-decoration:none;font-weight:600}
+
+  @media print{
+    body{padding:0}
+    .page{max-width:none;border-radius:0;box-shadow:none;border:none}
+    a{color:var(--cyan)}
+    .card:hover,.rep:hover,.who .item:hover{transform:none}
+  }
+  @media(max-width:900px){
+    body{padding:16px 10px}
+    .page{padding:34px 24px}
+    h1{font-size:42px}
+    .hero{grid-template-columns:1fr}
+    .hero-icon{justify-self:start}
+    .halves,.reps,.who,.walkout .row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="accent-top"></div>
+
+  <!-- ============ HEADER ============ -->
+  <div class="head">
+    <!-- QAIZR horizontal wordmark lockup (transparent) -->
+    <svg class="wordmark" viewBox="-240 0 2080 520" xmlns="http://www.w3.org/2000/svg" aria-label="QAIZR AI">
+      <defs>
+        <radialGradient id="wmGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 252) rotate(90) scale(112)">
+          <stop offset="0" stop-color="#F4FBFF" stop-opacity="0.9"/>
+          <stop offset="0.56" stop-color="#45D6FF" stop-opacity="0.2"/>
+          <stop offset="1" stop-color="#45D6FF" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="wmQ" x1="120" y1="140" x2="790" y2="320" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#F1F6FC"/><stop offset="1" stop-color="#DDE9F7"/>
+        </linearGradient>
+        <linearGradient id="wmAI" x1="1120" y1="158" x2="1420" y2="336" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#70E8FF"/><stop offset="1" stop-color="#1F90FF"/>
+        </linearGradient>
+      </defs>
+      <text x="812" y="325" text-anchor="end" fill="url(#wmQ)" font-size="214" font-family="Space Grotesk" font-weight="600" letter-spacing="7.6">Q<tspan dx="-0.6">A</tspan><tspan dx="-0.2">I</tspan><tspan dx="0.1">Z</tspan><tspan dx="-0.2">R</tspan></text>
+      <circle cx="960" cy="252" r="66" stroke="#2DBCE8" stroke-width="6" stroke-linecap="round" stroke-dasharray="392 23" stroke-dashoffset="-52" opacity="0.86"/>
+      <circle cx="960" cy="252" r="104" fill="url(#wmGlow)"/>
+      <path d="M955.8 84 C956.2 162 957.2 212 958.8 252 C957.2 292 956.2 342 955.8 420 L964.2 420 C963.8 342 962.8 292 961.2 252 C962.8 212 963.8 162 964.2 84 Z" fill="#2DBCE8" opacity="0.95"/>
+      <circle cx="960" cy="252" r="14" fill="#F4FBFF"/>
+      <text x="1108" y="325" text-anchor="start" fill="url(#wmAI)" font-size="214" font-family="Space Grotesk" font-weight="625" letter-spacing="7.2">A<tspan dx="-0.3">I</tspan></text>
+    </svg>
+    <div class="chip">Executive AI Accelerator</div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> A QAIZR working session</div>
+      <h1>The <span class="hl">Half-Day</span> Executive AI On-Ramp</h1>
+      <div class="subhead">From hearing about AI to running it, in a single working&nbsp;session.</div>
+    </div>
+    <!-- Gradient quasar icon (orange jet) -->
+    <div class="hero-icon">
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="QAIZR quasar mark">
+        <defs>
+          <linearGradient id="icBg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#08182F"/><stop offset="1" stop-color="#020B1E"/>
+          </linearGradient>
+          <linearGradient id="icJetUp" x1="256" y1="256" x2="256" y2="110" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#F4FBFF"/><stop offset="0.56" stop-color="#FF9A2F"/><stop offset="1" stop-color="#FF5A3D"/>
+          </linearGradient>
+          <linearGradient id="icJetDown" x1="256" y1="256" x2="256" y2="402" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#F4FBFF"/><stop offset="0.56" stop-color="#FF9A2F"/><stop offset="1" stop-color="#FF5A3D"/>
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="72" fill="url(#icBg)" stroke="rgba(69,214,255,0.25)" stroke-width="2"/>
+        <circle cx="256" cy="256" r="86" stroke="#2DBCE8" stroke-width="12" stroke-linecap="round" stroke-dasharray="502 38" stroke-dashoffset="-70" opacity="0.9"/>
+        <path d="M247.6 110 C248.4 176 250.4 218 253.6 256 L258.4 256 C261.6 218 263.6 176 264.4 110 Z" fill="url(#icJetUp)" opacity="0.97"/>
+        <path d="M253.6 256 C250.4 294 248.4 337 247.6 402 L264.4 402 C263.6 337 261.6 294 258.4 256 Z" fill="url(#icJetDown)" opacity="0.97"/>
+        <circle cx="256" cy="256" r="18" fill="#F4FBFF"/>
+      </svg>
+    </div>
+  </div>
+
+  <p class="lede">
+    The Executive AI Accelerator is a focused, <b>half-day working session</b> that moves you from
+    hearing about AI to actually running it. We spend the first part on the language that matters, the
+    real stakes, and AI working on your own role. In the second part, <b>you build your first AI agent</b>
+    and put it to work on one of your deliverables before you leave the room. You do not watch a demo.
+    You do the work&nbsp;yourself.
+  </p>
+
+  <div class="format">
+    <span class="badge orange"><span class="b-ico"></span>Half-day working session</span>
+    <span class="badge cyan"><span class="b-ico"></span>Hands-on, not a demo</span>
+    <span class="badge cyan"><span class="b-ico"></span>No coding required</span>
+    <span class="badge orange"><span class="b-ico"></span>You leave with a <span class="accentword">&nbsp;working agent</span></span>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ============ WHAT IT IS ============ -->
+  <div class="section-label">What it is</div>
+  <h2>Two parts, one working session</h2>
+  <p class="body">Hear about AI in the first part. Run it in the second. It is all grounded in one
+  philosophy: <b>AI amplifies the impact of people.</b> It does not replace the judgment, taste, and
+  accountability that make you good at your job. It gives you a tireless partner for the production work
+  around&nbsp;it.</p>
+
+  <div class="halves">
+    <div class="card">
+      <div class="h-num">First part / The on-ramp</div>
+      <h3>Get the language and the stakes</h3>
+      <p>Why this matters now, the handful of terms that actually count, and a set of exercises that put
+      AI to work on your real responsibilities: mapping what you produce and where AI can carry the&nbsp;load.</p>
+    </div>
+    <div class="card">
+      <div class="h-num">Second part / Build</div>
+      <h3>Build your first agent</h3>
+      <p>Turn one of your own deliverables into a working agent that produces it for you. Say the words,
+      and it runs. You walk out having played the game, not just heard the&nbsp;rules.</p>
+    </div>
+  </div>
+
+  <!-- ============ FOUR REPS ============ -->
+  <div class="section-label" style="margin-top:38px">The four reps</div>
+  <h2>You learn it by doing it</h2>
+  <div class="reps">
+    <div class="rep"><div class="n">01</div><div class="t">Map your role</div><div class="d">Lay out everything you produce as an AI Productivity&nbsp;Matrix.</div></div>
+    <div class="rep"><div class="n">02</div><div class="t">Write the order</div><div class="d">Turn one deliverable into a simple standard operating&nbsp;procedure.</div></div>
+    <div class="rep"><div class="n">03</div><div class="t">Build the agent</div><div class="d">Hand that order to the Agent Builder and watch it produce a working&nbsp;agent.</div></div>
+    <div class="rep"><div class="n">04</div><div class="t">Run it</div><div class="d">Say the words, and the agent produces the&nbsp;deliverable.</div></div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ============ WHO IT IS FOR ============ -->
+  <div class="section-label">Who it is for</div>
+  <h2>A primer for executives who need a real grasp of AI</h2>
+  <p class="body" style="margin-bottom:22px">It is a grounded primer and overview for executives who need to understand how AI can be put to work across their business for <span class="oaccent">competitive&nbsp;advantage</span>. No hype, no jargon, and no need to be technical. It is built for:</p>
+  <div class="who">
+    <div class="item"><div class="mark">&#10003;</div><p><b>Principals and owners</b> who want a clear, honest read on what AI can and cannot do, without the&nbsp;hype.</p></div>
+    <div class="item"><div class="mark">&#10003;</div><p><b>Directors and managers</b> whose weeks are full of reports, memos, plans, and summaries they would love help&nbsp;producing.</p></div>
+    <div class="item"><div class="mark">&#10003;</div><p><b>Operations and support staff</b> who keep the office running and are the natural operators of the agents built&nbsp;here.</p></div>
+    <div class="item"><div class="mark">&#10003;</div><p><b>Anyone curious but unsure</b>, including the skeptics. No coding, no prior AI experience, and no jargon&nbsp;required.</p></div>
+  </div>
+
+  <!-- ============ WALK OUT WITH ============ -->
+  <div class="walkout">
+    <div class="section-label" style="margin-bottom:16px">What you walk out with</div>
+    <div class="row">
+      <div class="cell">
+        <div class="k"><svg class="qbullet" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="86" fill="none" stroke="#FFC73A" stroke-width="26" stroke-linecap="round" stroke-dasharray="502 38" stroke-dashoffset="-70"/><path d="M247.6 110 C248.4 176 250.4 218 253.6 256 C250.4 294 248.4 337 247.6 402 L264.4 402 C263.6 337 261.6 294 258.4 256 C261.6 218 263.6 176 264.4 110 Z" fill="#FFC73A"/><circle cx="256" cy="256" r="30" fill="#F4FBFF"/></svg>A map of your role</div>
+        <div class="v">Your responsibilities and deliverables laid out as a working matrix you can build&nbsp;from.</div>
+      </div>
+      <div class="cell">
+        <div class="k"><svg class="qbullet" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="86" fill="none" stroke="#FFC73A" stroke-width="26" stroke-linecap="round" stroke-dasharray="502 38" stroke-dashoffset="-70"/><path d="M247.6 110 C248.4 176 250.4 218 253.6 256 C250.4 294 248.4 337 247.6 402 L264.4 402 C263.6 337 261.6 294 258.4 256 C261.6 218 263.6 176 264.4 110 Z" fill="#FFC73A"/><circle cx="256" cy="256" r="30" fill="#F4FBFF"/></svg>A working agent</div>
+        <div class="v">Your first AI agent, built by you, already producing one of your real&nbsp;deliverables.</div>
+      </div>
+      <div class="cell">
+        <div class="k"><svg class="qbullet" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="86" fill="none" stroke="#FFC73A" stroke-width="26" stroke-linecap="round" stroke-dasharray="502 38" stroke-dashoffset="-70"/><path d="M247.6 110 C248.4 176 250.4 218 253.6 256 C250.4 294 248.4 337 247.6 402 L264.4 402 C263.6 337 261.6 294 258.4 256 C261.6 218 263.6 176 264.4 110 Z" fill="#FFC73A"/><circle cx="256" cy="256" r="30" fill="#F4FBFF"/></svg>A clear next step</div>
+        <div class="v">An honest sense of where you are, and the path to go further from&nbsp;here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="foot">
+    <svg class="wm" viewBox="-240 0 2080 520" xmlns="http://www.w3.org/2000/svg" aria-label="QAIZR AI">
+      <defs>
+        <linearGradient id="fwmQ" x1="120" y1="140" x2="790" y2="320" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#F1F6FC"/><stop offset="1" stop-color="#DDE9F7"/>
+        </linearGradient>
+        <linearGradient id="fwmAI" x1="1120" y1="158" x2="1420" y2="336" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#70E8FF"/><stop offset="1" stop-color="#1F90FF"/>
+        </linearGradient>
+      </defs>
+      <text x="812" y="325" text-anchor="end" fill="url(#fwmQ)" font-size="214" font-family="Space Grotesk" font-weight="600" letter-spacing="7.6">Q<tspan dx="-0.6">A</tspan><tspan dx="-0.2">I</tspan><tspan dx="0.1">Z</tspan><tspan dx="-0.2">R</tspan></text>
+      <circle cx="960" cy="252" r="66" stroke="#2DBCE8" stroke-width="6" stroke-linecap="round" stroke-dasharray="392 23" stroke-dashoffset="-52" opacity="0.86"/>
+      <path d="M955.8 84 C956.2 162 957.2 212 958.8 252 C957.2 292 956.2 342 955.8 420 L964.2 420 C963.8 342 962.8 292 961.2 252 C962.8 212 963.8 162 964.2 84 Z" fill="#2DBCE8" opacity="0.95"/>
+      <circle cx="960" cy="252" r="14" fill="#F4FBFF"/>
+      <text x="1108" y="325" text-anchor="start" fill="url(#fwmAI)" font-size="214" font-family="Space Grotesk" font-weight="625" letter-spacing="7.2">A<tspan dx="-0.3">I</tspan></text>
+    </svg>
+    <div class="meta">
+      <span class="tag">People-Powered. <em>AI-Accelerated.</em></span><br>
+      Executive AI Accelerator &nbsp;&middot;&nbsp; Learn more at <a href="https://qzr.ai">qzr.ai</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
